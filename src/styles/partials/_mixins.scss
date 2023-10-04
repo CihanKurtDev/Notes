@@ -1,0 +1,31 @@
+@mixin theme($light-theme: true){
+    @if $light-theme {
+        background-color: #f6f6f6;
+        color:  darken($font-color, 100%)
+    }
+}
+
+@mixin flex($direction, $content, $items){
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $content;
+    align-items: $items;
+}
+
+
+@mixin flex-col{
+    display: flex;
+    flex-direction: column;
+}
+
+@mixin desktop{
+    @media screen and (min-width: 1024px) {
+        @content;
+    }
+} 
+
+@mixin tablet{
+    @media screen and (min-width: 768px) {
+        @content;
+    }
+} 

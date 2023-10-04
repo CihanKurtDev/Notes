@@ -1,0 +1,67 @@
+@import '../partials/variables';
+@import '../partials/mixins';
+
+
+.form {
+    background-color: $secondary-color;
+    color: $font-color;
+    padding: 1rem;
+    font-size: 1.5rem;
+    width: 90%;
+    @include tablet {
+        width: 25%;
+    };
+
+    &--folder {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 20vw
+    }
+
+    &__anchor {
+        color: $accent-color;
+        text-decoration: none;
+    }
+
+    &__paragraph {
+        font-size: 0.8rem;
+        width: 100%;
+        padding: 0 10px;
+        margin-bottom: 5px;
+
+        &--error {
+            position: absolute;
+            top: -0.8rem;
+            color: red;
+            left: 0;
+            margin: 0;
+        }
+    }
+
+    &__button{
+        width: 100%;
+        padding: 8px 0;
+        background-color: $primary-color;
+        border:none;
+        border-radius: 4px;
+        font-size: $font-size;
+    }
+
+    &__input{
+        font-size: 1.2rem;
+        padding: 5px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+    &__label{
+        @include flex-col;
+        margin-bottom: 10px;
+        text-align: left;
+    }
+}
+
