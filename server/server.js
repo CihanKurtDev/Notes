@@ -5,6 +5,7 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import path from 'path'
 import cookieParser from 'cookie-parser'
+import 'dotenv/config'
 import { fileURLToPath } from 'url'
 const app = express()
 const port = 3000
@@ -30,17 +31,16 @@ app.post('/', async (req, res) => {
         if (err) {
           reject(err)
         } else if (row) {
-          console.log(row)
           resolve(row)
-        } else {
-          reject()
         }
       })
     })
     const isAuth = await bcrypt.compare(password, row.password);
+    console.log(isAuth)
     if (isAuth) {
       const user = { name: row.name, userId: row.id }
       const accessToken = jwt.sign(user,process.env.VITE_ACCESS_TOKEN_SECRET)
+      console.log(accessToken, 2)
       res.cookie("accessToken", accessToken, {
         domain: "localhost",
         httpOnly: true,
@@ -50,7 +50,7 @@ app.post('/', async (req, res) => {
     }
     return res.status(401).json({ success: false, message: 'Invalid login credentials' });
   } catch(error) {
-    return res.status(401).json({ message: "Invalid Password"});
+    return res.status(401).json({ message: "Invalid Password", error});
   }
 });
 

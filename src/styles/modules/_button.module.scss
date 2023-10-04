@@ -1,0 +1,20 @@
+@import '../partials/variables';
+
+.button {
+    border: none;
+    border-radius: 4px;
+    border: none;
+    padding: 10px;
+    font-size: 1.2rem;
+
+    &:hover {
+        cursor: pointer
+    }
+
+    &--login {
+        @extend .button;
+        font-weight: bold;
+        background-color: $accent-color;
+        width: 100%;
+    }
+}

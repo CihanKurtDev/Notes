@@ -29,7 +29,7 @@ export async function handleSubmit(e, navigate) {
 
 export async function handleRegistration(e, navigate) {
     e.preventDefault(); 
-    fetch('http://localhost:3000/Register', {
+    fetch('http://localhost:3000/Registration', {
         method: "POST",
         credentials: 'include',
         headers: {

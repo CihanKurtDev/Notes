@@ -7,5 +7,16 @@ export default function Login() {
     { label: 'Passwort', type: 'password', id: 'password' },
   ];
   
-  return <Form fields={fields} submitFunction={handleSubmit}/>
+  return   <Form 
+  extra={[{ type: 'a',
+  props: {
+    href: 'http://localhost:5173/Registration', 
+    text: 'Noch keinen Account? Jetzt Regisitrieren', 
+    className: "form__anchor"
+    }
+  }]} 
+  fields={fields} 
+  submitFunction={handleSubmit}
+/>
+
 }

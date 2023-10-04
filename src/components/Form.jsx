@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom'
 
-export default function Form({ fields, submitFunction}) {
+export default function Form({ fields, submitFunction, extra = []}) {
   const navigate = useNavigate()
-  
+
   return (
     <main className="form-wrapper">
       <form className="form light" onSubmit={(e) => submitFunction(e, navigate)}>
@@ -12,7 +12,10 @@ export default function Form({ fields, submitFunction}) {
             <input className="input" type={field.type} id={field.id} pattern={field?.pattern} />
           </label>
         ))}
-        <button className="button--login" type='submit'>{submitFunction.name}</button>
+        {extra.map((tag, index) => {
+            return <tag.type index={index} {...tag.props}>{tag.props.text}</tag.type>
+        })}
+        <button className="button--login" type='submit'>Senden</button>
       </form>
     </main>
   );

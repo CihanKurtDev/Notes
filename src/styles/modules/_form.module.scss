@@ -3,6 +3,10 @@
 
 
 .form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: fit-content;
     background-color: $secondary-color;
     color: $font-color;
     padding: 1rem;
@@ -21,8 +25,11 @@
     }
 
     &__anchor {
+        text-align: center;
+        margin-bottom: 5px;
         color: $accent-color;
         text-decoration: none;
+        font-size: 0.9rem;
     }
 
     &__paragraph {

@@ -3,7 +3,7 @@ import Form from '../components/Form'
 
 export default function Registration() {
     const fields = [
-        { label: 'E-Mail', type: 'email', id: 'email', pattern: '^[^\s@]+@[^\s@]+\.[^\s@]+$' },
+        { label: 'E-Mail', type: 'email', id: 'email', pattern: '^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$' },
         { label: 'Name', type: 'text', id: 'name' },
         { label: 'Passwort', type: 'password', id: 'password' },
       ];
