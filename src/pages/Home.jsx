@@ -1,8 +1,12 @@
 import Header from '../components/Header';
 import { useEffect } from 'react';
 import userStore from '../stores/userStore';
+import { NoteWrapper } from '../components/NoteWrapper';
+import { getUserNotes } from '../api/api';
+import { useNavigate } from 'react-router-dom';
 
 export default function Home(){
+    const navigate = useNavigate()
     const { 
         searchString, 
         setNotesToEdit, 
@@ -11,7 +15,18 @@ export default function Home(){
         setSelectedNotes,
         folders,
         checkAllNotes,
+        setNotes,
+        setNoteObj,
+        setIsLoaded,
+        setReadOnly
     } = userStore()
+
+    useEffect(() => {
+        getUserNotes(setNotes, setIsLoaded, navigate)
+        setNoteObj({})
+        setNotesToEdit([])
+        setReadOnly(false)
+    }, [])
 
     useEffect(() => {
         setSelectedNotes(notes)
@@ -32,7 +47,8 @@ export default function Home(){
     
     return (
         <div className="container">
-            <Header props={{title: "Alle Notizen"}}/>
+            <Header title={"Alle Notizen"}/>
+            <NoteWrapper data={selectedNotes} />
         </div>    
     )
 }

@@ -18,6 +18,23 @@ app.use(cors({
 }))
 app.use(express.json());   
 
+function checkToken( req ,res ,next ){
+  const accessToken = req.cookies.accessToken
+  if (!accessToken) {
+    return res.status(401).json({ message: 'Access token not found', isAuthorized: false })
+  }
+  jwt.verify(accessToken, process.env.VITE_ACCESS_TOKEN_SECRET, (err, decoded) => {
+    if (err) {
+      req.tokenSuccess = false
+      return res.status(401)
+    } else {
+      req.tokenSuccess = true
+      req.decodedToken = decoded
+      next()
+    }
+  });
+}
+
 app.post('/', async (req, res) => {
   const { name, password } = req.body
 
@@ -68,6 +85,69 @@ app.post('/Registration', (req, res) => {
   }); 
 });
 
+app.get('/Notes',checkToken, async (req, res) => {
+  const { userId } = req.decodedToken;
+
+  db.all("SELECT * FROM Notes where userId = ?", [userId], (err, rows) => {
+    if(err) return res.status(403).json({message: "Get error"})
+    res.status(200).json({message: "Notes received", isAuthorized: true, rows})
+  })
+});
+
+app.post('/Notes', checkToken, (req, res) => {
+  const { userId } = req.decodedToken
+  const { content, date, id, time, title, folderId } = req.body
+
+  function insertNote() {
+    db.run("INSERT INTO Notes(userId, content, date, time, title) VALUES(?, ?, ?, ?, ?)", [userId, content, date, time, title || null], function (err) {
+      if (err) {
+        return res.status(403).json({ message: "Insert error", err })
+      } else {
+        const noteId = this.lastID || 0
+        res.status(200).json({ message: "Note inserted", id: noteId })
+        if (folderId) {
+          db.run("INSERT INTO NotesInFolder(noteId, folderId, userId) VALUES(?, ?, ?)", [noteId, folderId, userId], (err) => {
+            if (err) console.error("Insert error into NotesInFolder", err)
+          })
+        }
+      }
+    })
+  }
+
+  db.get("SELECT id FROM Notes WHERE id = ? AND userId = ?", [id, userId], (err, row) => {
+    if (err) {
+      return res.status(500).json({ message: "Select error" })
+    }
+    if (row) {
+      db.run("UPDATE Notes SET content = ?, date = ?, time = ?, title = ? WHERE id = ? AND userId = ?", [content, date, time, title || null, id, userId], function (err) {
+        if (err) return res.status(403).json({ message: "Update error", err })
+        res.status(200).json({ message: "Update successful", id })
+      });
+    } else {
+      insertNote()
+    }
+  })
+})
+
+app.get('/Notes/:id',checkToken, async (req, res) => {
+  const { userId } = req.decodedToken;
+  const {id} = req.params 
+
+  db.get("SELECT * FROM Notes where userId = ? AND id = ?", [userId, id], (err, row) => {
+    if(err) return res.status(403).json({message: "Note not found"})
+    res.status(200).json({message: "Note found", row})
+  })
+});
+
+app.post('/Notes/:id',checkToken, async (req, res) => {
+  const { userId } = req.decodedToken;
+  const {id} = req.params 
+
+  db.get("DELETE FROM Notes where userId = ? AND id = ?", [userId, id], (err, row) => {
+    if(err) return res.status(403).json({message: "Note not found"})
+    res.status(200).json({message: "Note deleted", row})
+  })
+});
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)

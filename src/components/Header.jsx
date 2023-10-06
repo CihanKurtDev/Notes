@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { iconSet } from '../utils/icon'; 
@@ -14,6 +14,8 @@ export default function Header(){
         setShowDropdown,
         readOnly, 
         setReadOnly,
+        noteObj,
+        setNoteObj
     } = userStore()
     const [showSearch, setShowSearch] = useState(false)
     const navigate = useNavigate()
@@ -49,7 +51,7 @@ export default function Header(){
     return (
         <header className='header'>
           <div className="button__wrapper--left">{generateButtons("left")}</div>
-          {showSearch ? <input autoFocus className={`input input--search input--header ${showSearch && "open"}`} type='text' placeholder='Title' onBlur={() => setShowSearch(false)}/> : <p onClick={() => setShowSearch(true)}>Titel</p>}
+          {showSearch ? <input autoFocus className={`input input--search input--header ${showSearch && "open"}`} type='text' placeholder='Title' value={noteObj.title} onChange={(e) =>  setNoteObj({...noteObj, title: e.target.value})} onBlur={() => setShowSearch(false)}/> : <h1 onClick={() => setShowSearch(true)}>{noteObj.title || "Kein Titel"}</h1>}
           <div className="button__wrapper--right">{generateButtons("right")}</div>
         </header>
       );

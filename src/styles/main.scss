@@ -3,6 +3,7 @@
 @import './modules/button.module.scss';
 @import './modules/form.module.scss';
 @import './modules/input.module.scss';
+@import './modules/quill.module.scss';
 
 body {
     background-color: $background-color;
@@ -20,10 +21,6 @@ body {
     margin: 0;
 }
 
-p {
-    font-size: 1.2rem;
-}
-
 .form-wrapper {
     display: flex;
     justify-content: center;
@@ -37,4 +34,50 @@ p {
     align-items: center;
     background-color: #393E46;
     height: 50px;
+}
+
+.container {
+    min-height: 100vh;
+}
+
+.site-wrapper {
+    @include flex-col;
+    height: 100vh;
+    position: relative;
+}
+
+.preview-wrapper{
+    margin: 5px;
+    border-radius: 5px;
+    height: fit-content;
+    padding: 5px;    
+    text-align: center;
+    color: white;
+
+    p {
+        margin: 5px 0;
+    }
+
+    &:hover{
+        background-color: lighten($background-color, 5%);
+        cursor: pointer;
+    }
+
+    &:hover .note-info{
+        font-weight: bold
+    }
+} 
+
+.note-preview{
+    background-color:  rgb(221, 221, 125);
+    color: #000;
+    border: 1px solid $primary-color;
+    border-radius: 5px;
+
+    p{
+        max-height: 100%;
+        overflow: hidden;
+        width: 90%;
+    }
+
 }

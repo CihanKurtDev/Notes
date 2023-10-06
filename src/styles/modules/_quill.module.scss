@@ -1,0 +1,67 @@
+.quill{
+    @include flex-col;
+    flex-grow: 1;
+
+    .ql-container {
+        box-sizing: border-box;
+        font-family: Helvetica, Arial, sans-serif;
+        font-size: 13px;
+        height: 100%;
+        margin: 0px;
+        position: relative;
+        background-color: rgb(211, 211, 75);
+    }
+    .ql-editor {
+    line-height: 1.42;
+    height: 100%;
+    outline: none;
+    overflow-y: auto;
+    padding: 12px 15px;
+    text-align: left;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    color: black;
+    }
+    .ql-picker-options {
+    background-color: $background-color;
+    }
+    
+    @media (pointer: coarse) {
+    .ql-snow.ql-toolbar button:hover:not(.ql-active),
+    .ql-snow .ql-toolbar button:hover:not(.ql-active) {
+        color: $accent-color;
+    }
+    .ql-snow.ql-toolbar button:hover:not(.ql-active) .ql-fill,
+    .ql-snow .ql-toolbar button:hover:not(.ql-active) .ql-fill,
+    .ql-snow.ql-toolbar button:hover:not(.ql-active) .ql-stroke.ql-fill,
+    .ql-snow .ql-toolbar button:hover:not(.ql-active) .ql-stroke.ql-fill {
+        fill: $accent-color;
+    }
+    .ql-snow.ql-toolbar button:hover:not(.ql-active) .ql-stroke,
+    .ql-snow .ql-toolbar button:hover:not(.ql-active) .ql-stroke,
+    .ql-snow.ql-toolbar button:hover:not(.ql-active) .ql-stroke-miter,
+    .ql-snow .ql-toolbar button:hover:not(.ql-active) .ql-stroke-miter {
+        stroke:  $accent-color;
+    }
+    }
+    .ql-snow .ql-stroke {
+    fill: none;
+    stroke: white;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+    }
+    .ql-snow .ql-fill,
+    .ql-snow .ql-stroke.ql-fill {
+    fill: $accent-color;
+    }
+    .ql-snow .ql-picker {
+    color: $font-color;
+    }
+    .ql-snow a {
+    color: $accent-color;
+    }
+    .ql-container.ql-snow {
+    border: 1px solid #ccc;
+    }
+}

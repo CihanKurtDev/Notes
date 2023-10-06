@@ -5,6 +5,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import {fas} from '@fortawesome/free-solid-svg-icons'
 import './App.css'
 import Home from './pages/Home'
+import NoteEditor from './pages/NoteEditor'
 
 library.add(fas)
 
@@ -15,6 +16,7 @@ function App() {
       <Route path='/' element={<Login />}/> 
       <Route path='/Registration' element={<Registration />}/> 
       <Route path='/Home' element={<Home />}/> 
+      <Route path='/NoteEditor' element={<NoteEditor />}/> 
       <Route path='*' element={<h1>Not Found</h1>}/> 
     </Routes>
   )

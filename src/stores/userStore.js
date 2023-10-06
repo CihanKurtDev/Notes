@@ -2,7 +2,7 @@ import { create } from 'zustand'
 
 const userStore = create((set) => ({
     // Might change content of userStore
-
+    noteObj: {},
     searchString: "",
     isLoading: false,
     isEditingNotes: false,
@@ -16,6 +16,7 @@ const userStore = create((set) => ({
     selectedFolder: {name: "Alle Notizen"},
     showFolderForm: false,
     showSortDropdown: false,
+    setNoteObj: (obj) => set({noteObj: obj}),
     setShowSortDropdown: (boolean) => set({showSortDropdown: boolean}),
     setReadOnly: (boolean) => set({readOnly: boolean}),
     setCheckAllNotes: (boolean) => set({checkAllNotes: boolean}),
