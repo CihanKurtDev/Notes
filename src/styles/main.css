@@ -200,7 +200,7 @@ body {
 
 .header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   background-color: #393E46;
   height: 50px;
@@ -224,6 +224,7 @@ body {
   padding: 5px;
   text-align: center;
   color: white;
+  overflow: hidden;
 }
 .preview-wrapper p {
   margin: 5px 0;
@@ -246,6 +247,15 @@ body {
   max-height: 100%;
   overflow: hidden;
   width: 90%;
+}
+
+.button__wrapper--left {
+  position: absolute;
+  left: 0;
+}
+.button__wrapper--right {
+  position: absolute;
+  right: 0;
 }
 
 /*# sourceMappingURL=main.css.map */

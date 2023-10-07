@@ -30,7 +30,7 @@ body {
 
 .header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     background-color: #393E46;
     height: 50px;
@@ -53,6 +53,7 @@ body {
     padding: 5px;    
     text-align: center;
     color: white;
+    overflow: hidden;
 
     p {
         margin: 5px 0;
@@ -80,4 +81,17 @@ body {
         width: 90%;
     }
 
+}
+
+.button {
+    &__wrapper {
+        &--left {
+            position: absolute;
+            left: 0;
+        }
+        &--right {
+            position: absolute;
+            right: 0;
+        }
+    }
 }
