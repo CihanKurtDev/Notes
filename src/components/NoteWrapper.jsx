@@ -26,17 +26,23 @@ export function NoteWrapper({data}) {
         )
     }
 
-    const [divSize, setDivSize] = useState((10 / 100) * window.innerWidth);
+    const [notesize, setNotesize] = useState(window.innerWidth > 786 ? 10 : 30)
+    const [divSize, setDivSize] = useState(((notesize / 100) * window.innerWidth));
     const [divsPerRow, setDivsPerRow] = useState(Math.floor(window.innerWidth/ divSize));
     const [amountOfRows, setAmountOfRows] = useState(Math.ceil(data.length / divsPerRow));
 
-    useEffect(() => {
     function handleResize() {
-        const updatedDivSize = Math.ceil((10 / 100) * window.innerWidth < 150 ? 150: (10 / 100) * window.innerWidth)
+        const updatedNotesize = window.innerWidth > 786 ? 10 : 30
+        const updatedDivSize = Math.ceil((updatedNotesize / 100) * window.innerWidth)
+        const updatedDivsPerRow = Math.floor(window.innerWidth / (updatedDivSize + 20))
+        const updatedAmountOfRows = Math.ceil(data.length / updatedDivsPerRow)
+    
+        setNotesize(updatedNotesize)
         setDivSize(updatedDivSize)
-        setDivsPerRow(Math.floor(window.innerWidth/ divSize))
-        setAmountOfRows(Math.ceil(data.length / divsPerRow))
+        setDivsPerRow(updatedDivsPerRow)
+        setAmountOfRows(updatedAmountOfRows)
     }
+    useEffect(() => {
 
     handleResize();
 
@@ -67,7 +73,7 @@ export function NoteWrapper({data}) {
                 >
                     <p>{data[dataIndex]?.content?.replace(/<[^>]*>/g, '')}</p>
                 </div>
-                <div  className='note-info'>
+                <div className='note-info' style={{maxWidth: divSize}}>
                     <p>{data[dataIndex]?.title ||"Kein Titel"}</p>
                     <sub>{data[dataIndex].date}</sub>
                 </div>
