@@ -32,20 +32,21 @@ export function NoteWrapper({data}) {
     const [amountOfRows, setAmountOfRows] = useState(Math.ceil(data.length / divsPerRow));
 
     function handleResize() {
+        const gap = 20
         const updatedNotesize = window.innerWidth > 786 ? 10 : 30
         const updatedDivSize = Math.ceil((updatedNotesize / 100) * window.innerWidth)
-        const updatedDivsPerRow = Math.floor(window.innerWidth / (updatedDivSize + 20))
+        const updatedDivsPerRow = Math.floor(window.innerWidth / (updatedDivSize + gap))
         const updatedAmountOfRows = Math.ceil(data.length / updatedDivsPerRow)
-    
-        setNotesize(updatedNotesize)
-        setDivSize(updatedDivSize)
-        setDivsPerRow(updatedDivsPerRow)
-        setAmountOfRows(updatedAmountOfRows)
+        const adjustedDivSize = updatedDivSize + (window.innerWidth - (updatedDivSize * updatedDivsPerRow)) / updatedDivsPerRow - gap
+      
+        setNotesize((prevSize) => (prevSize !== updatedNotesize ? updatedNotesize : prevSize))
+        setDivSize((prevSize) => (prevSize !== adjustedDivSize ? adjustedDivSize : prevSize))
+        setDivsPerRow((prevDivs) => (prevDivs !== updatedDivsPerRow ? updatedDivsPerRow : prevDivs))
+        setAmountOfRows((prevRows) => (prevRows !== updatedAmountOfRows ? updatedAmountOfRows : prevRows))
     }
+
     useEffect(() => {
-
     handleResize();
-
     window.addEventListener('resize', handleResize)
 
     return () => {
