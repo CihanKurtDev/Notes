@@ -95,3 +95,35 @@ body {
         }
     }
 }
+
+.settings-wrapper {
+    height: 100%;
+    width: 0;
+    background-color: $dark-gray;
+    overflow-y: auto;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 0;
+    opacity: 0; 
+    transition: opacity 0.5s, width 0.5s;                           
+
+    &.open {
+        opacity: 1;
+        width: 90vw;
+        @include desktop {
+            width: 30vw;
+        };
+    }
+
+    .settings-button-wrapper {
+        display: flex;
+        justify-content: flex-end;
+    }
+}
+
+.list {
+    padding: 0;
+    li{
+        list-style-type: none;
+    }
+}

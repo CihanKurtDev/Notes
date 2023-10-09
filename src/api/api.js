@@ -104,6 +104,18 @@ export async function getUserNotes(setNotes, setIsLoaded, navigate){
     }
 }
 
+export async function getFolders(setFolders){
+    fetch(`http://localhost:3000/Folders/`, {
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+    .then((response) => response.json())
+    .then((data) => setFolders(data.rows))
+    .catch((error) => console.error(error))
+}
+
 export async function getNotesInFolders(folderId, setSelectedNotes, notes){
     const filteredNotes = []
     try {

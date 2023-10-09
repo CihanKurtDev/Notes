@@ -149,6 +149,33 @@ app.post('/Notes/:id',checkToken, async (req, res) => {
   })
 });
 
+app.get("/Folders", checkToken, (req, res) =>  {
+  const { userId } = req.decodedToken;
+
+  db.all("SELECT * FROM Folders WHERE userId = ?", [userId], (err, rows) => {
+    if(err) return res.status(403).json({message: "Folder(s) not found"})
+    res.status(200).json({message: "Folder(s) selected", rows})
+  })
+})
+
+app.post("/Folders", checkToken, (req, res) => {
+  const { userId } = req.decodedToken;
+  const {folderName, notes} = req.body;
+
+  db.run("INSERT INTO FOLDERS(userId, name) VALUES(?, ?)",[userId, folderName], function(err) {
+    if(err) return res.status(403).json({message: "Couldnt create Folder", err})
+
+    db.serialize(() => {
+      notes.forEach((id) => {
+        db.run(`INSERT INTO NotesInFolder (noteId, folderId, userId) VALUES(?, ?, ?)`, [id, this.lastID, userId], (err) => {
+          if(err) return res.status(403).json({message: "INSERT error"})
+        })
+    })
+    res.status(200).json({message: "Folder inserted"})
+  })
+  })
+}) 
+
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })

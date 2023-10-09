@@ -4,6 +4,7 @@ import userStore from '../stores/userStore';
 import { NoteWrapper } from '../components/NoteWrapper';
 import { getUserNotes } from '../api/api';
 import { useNavigate } from 'react-router-dom';
+import Settings from '../components/Settings';
 
 export default function Home(){
     const navigate = useNavigate()
@@ -48,6 +49,7 @@ export default function Home(){
     return (
         <div className="container">
             <Header title={"Alle Notizen"}/>
+            <Settings />
             <NoteWrapper data={selectedNotes} />
         </div>    
     )

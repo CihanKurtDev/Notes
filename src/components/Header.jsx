@@ -39,7 +39,7 @@ export default function Header(){
         return iconsToShow.map((icon) => (
             <>
                 {icon.position === string && 
-                    <button onClick={icon.func} className="button--transparent" x={icon}>
+                    <button onClick={icon.func} className="button--transparent">
                         <FontAwesomeIcon icon={icon.icon} />
                     </button>
                 }
