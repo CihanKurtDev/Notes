@@ -1,6 +1,7 @@
 @import './partials/variables';
 @import './partials/mixins';
 @import './modules/button.module.scss';
+@import './modules/dropdown.module.scss';
 @import './modules/form.module.scss';
 @import './modules/input.module.scss';
 @import './modules/quill.module.scss';
@@ -123,6 +124,10 @@ body {
 
 .list {
     padding: 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     li{
         list-style-type: none;
     }

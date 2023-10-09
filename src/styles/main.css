@@ -28,6 +28,49 @@
   color: #06c;
   background-color: #181c22;
 }
+.button--dropdown {
+  height: 40px;
+  padding: 0px 30px;
+  background-color: transparent;
+  border-bottom: 1px solid #393E46;
+  border-radius: 0;
+}
+.button--dropdown:hover {
+  background-color: #37414f;
+  cursor: pointer;
+}
+.button.active, .active.button--login, .active.button--transparent {
+  font-weight: bold;
+  color: #036203;
+}
+
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  background-color: #1b1f24;
+  position: absolute;
+  right: 0;
+  top: 50px;
+  width: max-content;
+}
+.dropdown--settings {
+  top: initial;
+  width: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s, visibility 0.5s;
+}
+.dropdown--settings.open {
+  opacity: 1;
+  visibility: visible;
+}
+.dropdown:last-child {
+  border-bottom: none;
+}
+.dropdown--sort {
+  top: 0;
+  right: 100%;
+}
 
 .form {
   display: flex;
@@ -285,6 +328,10 @@ body {
 
 .list {
   padding: 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 .list li {
   list-style-type: none;

@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { iconSet } from '../utils/icon'; 
 import userStore from '../stores/userStore';
+import { DropdownMenu } from './DropdownMenu';
 
 export default function Header(){
     const { 
@@ -53,6 +54,7 @@ export default function Header(){
           <div className="button__wrapper--left">{generateButtons("left")}</div>
           {showSearch ? <input autoFocus className={`input input--search input--header ${showSearch && "open"}`} type='text' placeholder='Title' value={noteObj.title} onChange={(e) =>  setNoteObj({...noteObj, title: e.target.value})} onBlur={() => setShowSearch(false)}/> : <h1 onClick={() => setShowSearch(true)}>{noteObj.title || "Kein Titel"}</h1>}
           <div className="button__wrapper--right">{generateButtons("right")}</div>
+          <DropdownMenu location={location} />
         </header>
       );
 
