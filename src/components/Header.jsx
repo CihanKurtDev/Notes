@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { iconSet } from '../utils/icon'; 
 import userStore from '../stores/userStore';
+import { DropdownMenu } from './DropdownMenu';
 
 export default function Header(){
     const { 
@@ -15,7 +16,8 @@ export default function Header(){
         readOnly, 
         setReadOnly,
         noteObj,
-        setNoteObj
+        setNoteObj,
+        selectedFolder
     } = userStore()
     const [showSearch, setShowSearch] = useState(false)
     const navigate = useNavigate()
@@ -39,7 +41,7 @@ export default function Header(){
         return iconsToShow.map((icon) => (
             <>
                 {icon.position === string && 
-                    <button onClick={icon.func} className="button--transparent" x={icon}>
+                    <button onClick={icon.func} className="button--transparent">
                         <FontAwesomeIcon icon={icon.icon} />
                     </button>
                 }
@@ -47,13 +49,19 @@ export default function Header(){
             )
         );
     }
-
+    console.log(location === "NoteEditor")
     return (
         <header className='header'>
           <div className="button__wrapper--left">{generateButtons("left")}</div>
-          {showSearch ? <input autoFocus className={`input input--search input--header ${showSearch && "open"}`} type='text' placeholder='Title' value={noteObj.title} onChange={(e) =>  setNoteObj({...noteObj, title: e.target.value})} onBlur={() => setShowSearch(false)}/> : <h1 onClick={() => setShowSearch(true)}>{noteObj.title || "Kein Titel"}</h1>}
+            {location === "NoteEditor" 
+                ? <input className='input input--search' type='text' placeholder='Title' value={noteObj.title} onChange={(e) =>  setNoteObj({...noteObj, title: e.target.value})} /> 
+                :  (location === "Home" && showSearch 
+                    ? <input autoFocus className='input input--search' id='search' type='text' placeholder='Search' value={searchString} onBlur={() => setShowSearch(false)} onChange={(e) =>  setSearchString(e.target.value)} />
+                    : <p className='header__paragraph'>{selectedFolder.name}</p>
+                )
+            }
           <div className="button__wrapper--right">{generateButtons("right")}</div>
+          <DropdownMenu location={location} />
         </header>
-      );
-
+    );
 }

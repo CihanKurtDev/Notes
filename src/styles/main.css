@@ -28,6 +28,52 @@
   color: #06c;
   background-color: #181c22;
 }
+.button--dropdown {
+  height: 40px;
+  padding: 0px 30px;
+  background-color: transparent;
+  border-bottom: 1px solid #393E46;
+  border-radius: 0;
+}
+.button--dropdown:hover {
+  background-color: #37414f;
+  cursor: pointer;
+}
+.button.active, .active.button--login, .active.button--transparent {
+  font-weight: bold;
+  color: #036203;
+}
+
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  background-color: #1b1f24;
+  position: absolute;
+  right: 0;
+  top: 50px;
+  width: max-content;
+}
+.dropdown--settings {
+  width: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s, visibility 0.5s;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.dropdown--settings.open {
+  opacity: 1;
+  visibility: visible;
+}
+.dropdown:last-child {
+  border-bottom: none;
+}
+.dropdown--sort {
+  top: 0;
+  right: 100%;
+}
 
 .form {
   display: flex;
@@ -74,6 +120,7 @@
   border-radius: 4px;
   width: 100%;
   margin-bottom: 5px;
+  box-sizing: border-box;
 }
 .form__label {
   display: flex;
@@ -89,16 +136,14 @@
   background-color: #393E46;
 }
 .input--search {
-  background-color: transparent;
   border: none;
   font-size: 1.2rem;
-  width: 0%;
-  flex-grow: 0;
+  border-radius: 0;
   transition: width 1s, background-color 1s;
-}
-.input--search.open {
   width: 60%;
   background-color: #222831;
+  height: 100%;
+  padding: 0 5px;
 }
 .input:focus-visible {
   outline: none;
@@ -256,6 +301,50 @@ body {
 .button__wrapper--right {
   position: absolute;
   right: 0;
+}
+
+.settings-wrapper {
+  height: 100%;
+  width: 0;
+  background-color: #1b1f24;
+  overflow-y: auto;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 0;
+  opacity: 0;
+  transition: opacity 0.5s, width 0.5s;
+}
+.settings-wrapper.open {
+  opacity: 1;
+  width: 90vw;
+}
+@media screen and (min-width: 1024px) {
+  .settings-wrapper.open {
+    width: 30vw;
+  }
+}
+.settings-wrapper .settings-button-wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.list {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+}
+.list li {
+  list-style-type: none;
+}
+
+.folder-form-wrapper {
+  position: absolute;
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
 }
 
 /*# sourceMappingURL=main.css.map */
