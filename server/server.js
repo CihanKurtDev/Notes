@@ -53,11 +53,9 @@ app.post('/', async (req, res) => {
       })
     })
     const isAuth = await bcrypt.compare(password, row.password);
-    console.log(isAuth)
     if (isAuth) {
       const user = { name: row.name, userId: row.id }
       const accessToken = jwt.sign(user,process.env.VITE_ACCESS_TOKEN_SECRET)
-      console.log(accessToken, 2)
       res.cookie("accessToken", accessToken, {
         domain: "localhost",
         httpOnly: true,
@@ -104,12 +102,12 @@ app.post('/Notes', checkToken, (req, res) => {
         return res.status(403).json({ message: "Insert error", err })
       } else {
         const noteId = this.lastID || 0
-        res.status(200).json({ message: "Note inserted", id: noteId })
         if (folderId) {
           db.run("INSERT INTO NotesInFolder(noteId, folderId, userId) VALUES(?, ?, ?)", [noteId, folderId, userId], (err) => {
             if (err) console.error("Insert error into NotesInFolder", err)
           })
-        }
+      }
+      res.status(200).json({ message: "Note inserted", id: noteId })
       }
     })
   }
@@ -148,6 +146,57 @@ app.post('/Notes/:id',checkToken, async (req, res) => {
     res.status(200).json({message: "Note deleted", row})
   })
 });
+
+app.get("/Folders", checkToken, (req, res) =>  {
+  const { userId } = req.decodedToken;
+
+  db.all("SELECT * FROM Folders WHERE userId = ?", [userId], (err, rows) => {
+    if(err) return res.status(403).json({message: "Folder(s) not found"})
+    res.status(200).json({message: "Folder(s) selected", rows})
+  })
+})
+
+app.post("/Folders", checkToken, (req, res) => {
+  const { userId } = req.decodedToken;
+  const {folderName, notes} = req.body;
+
+  db.run("INSERT INTO FOLDERS(userId, name) VALUES(?, ?)",[userId, folderName], function(err) {
+    if(err) return res.status(403).json({message: "Couldnt create Folder", err})
+
+    db.serialize(() => {
+      notes.forEach((id) => {
+        db.run(`INSERT INTO NotesInFolder (noteId, folderId, userId) VALUES(?, ?, ?)`, [id, this.lastID, userId], (err) => {
+          if(err) return res.status(403).json({message: "INSERT error"})
+        })
+    })
+    res.status(200).json({message: "Folder inserted"})
+  })
+  })
+}) 
+
+app.get("/NotesInFolder/:id", checkToken, (req, res) => {
+  const { userId } = req.decodedToken;
+  const {id} = req.params
+
+  db.all("Select * From NotesInFolder WHERE userId = ? and folderId = ?", [userId, id], (err, rows) => {
+    if(err) return res.status(403).json({message: "Select error"})
+    res.status(200).json({message: "Select successfull", rows})
+  })
+})
+
+app.post("/deleteFolders", checkToken, (req, res) => {
+  const { userId } = req.decodedToken;
+  const {folder} = req.body;
+
+  db.run("DELETE FROM NotesInFolder WHERE userId = ? AND folderId = ?",[userId, folder.id], (err) => {
+    if(err) return res.status(403).json({message: "Delete error", err})
+  })
+
+  db.run("DELETE FROM Folders WHERE userId = ? AND id = ?",[userId, folder.id], (err) => {
+    if(err) return res.status(403).json({message: "Delete error", err})
+    res.status(200).json({message:"Folder Deleted"})
+  })
+})  
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)

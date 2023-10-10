@@ -79,6 +79,36 @@ export async function getNote(id, setNoteObj, noteObj, navigate){
     }
 }
 
+
+export async function deleteNote(noteObj, navigate) {
+    try {
+        const res = await fetch(`http://localhost:3000/Notes/${noteObj.id}`, {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                id: noteObj.id
+            }),
+        })
+
+        if(!res.ok) {
+            console.log(`HTTP error! status: ${res.status}`)
+        }
+
+        const data = await res.json()
+        if(data) {
+            console.log(data)
+        }
+        navigate("/Home")
+
+    } catch ( error ) {
+        console.log(error)
+    }
+}
+
+
 export async function getUserNotes(setNotes, setIsLoaded, navigate){
     try {
         const res = await fetch(`http://localhost:3000/Notes/`,{
@@ -104,6 +134,23 @@ export async function getUserNotes(setNotes, setIsLoaded, navigate){
     }
 }
 
+export async function getFolders(setFolders){
+    try {
+        const res = await fetch(`http://localhost:3000/Folders/`, {
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+    
+        const data = await res.json()
+        setFolders(data.rows)
+
+    } catch(error) {
+        console.error(error)
+    }
+}
+
 export async function getNotesInFolders(folderId, setSelectedNotes, notes){
     const filteredNotes = []
     try {
@@ -125,17 +172,15 @@ export async function getNotesInFolders(folderId, setSelectedNotes, notes){
               filteredNotes.push(note)
             } 
         }
-        
     }catch (error) {
         console.log(error)
     } finally {
-        () => setSelectedNotes(filteredNotes)
+        setSelectedNotes(filteredNotes)
     }
 }
 
 export async function saveNoteState(value, dayjs, noteObj, setNoteObj, setIsLoading, selectedFolder) {
     setIsLoading(true)
-    console.log(noteObj)
     try {
         const res = await fetch("http://localhost:3000/Notes", {
             method: "POST",
@@ -166,5 +211,51 @@ export async function saveNoteState(value, dayjs, noteObj, setNoteObj, setIsLoad
         console.error(error)
     } finally {
         setIsLoading(false)
+    }
+}
+
+export async function createFolder(e, folderName, setFolders, notesToEdit, setNotes, setIsLoaded, setShowSettings){
+    e.preventDefault();
+    try {
+        const res = await fetch(`http://localhost:3000/Folders/`, {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({folderName: folderName, notes: notesToEdit})
+        })
+
+        if (!res.ok) {
+            console.log(`HTTP error! status: ${res.status}`)
+        }
+    }catch(error) {
+        console.log(error)
+    }finally {
+        getFolders(setFolders),
+        getUserNotes(setNotes, setIsLoaded), 
+        setShowSettings(true)
+    }
+}
+
+
+export async function deleteFolder(folder, setFolders, setSelectedFolder){
+    try {
+        const res = await fetch(`http://localhost:3000/deleteFolders/`, {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({folder})
+        })
+        if (!res.ok) {
+            console.log(`HTTP error! status: ${res.status}`)
+        }
+    } catch(error) {
+        console.log(error)
+    }finally {
+        getFolders(setFolders),
+        setSelectedFolder({name: "Alle Notizen"})
     }
 }

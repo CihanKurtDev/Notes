@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import userStore from '../stores/userStore';
 import { useNavigate } from 'react-router-dom'
 import { getNote } from '../api/api';
+import { handleCheck } from '../utils/utils';
 
 export function NoteWrapper({data}) {
     const { 
@@ -64,19 +65,20 @@ export function NoteWrapper({data}) {
             <div 
             className='preview-wrapper'
             key={`row${i} item${j}`}
-            onClick={() =>getNote(data[dataIndex].id, setNoteObj, noteObj, navigate)}
             >
-                <input type='checkbox' checked={notesToEdit.includes(data[dataIndex].toString()) || checkAllNotes} style={{visibility: isEditingNotes? "visible" : "hidden"}} onChange={(e) =>handleCheck(e, notesToEdit, setNotesToEdit)}/>
-                <div 
-                key={data[dataIndex].id} 
-                className='note-preview' 
-                style={{width: divSize, height: divSize * 0.9, display: "flex", justifyContent: "center"}}
-                >
-                    <p>{data[dataIndex]?.content?.replace(/<[^>]*>/g, '')}</p>
-                </div>
-                <div className='note-info' style={{maxWidth: divSize}}>
-                    <p>{data[dataIndex]?.title ||"Kein Titel"}</p>
-                    <sub>{data[dataIndex].date}</sub>
+                {isEditingNotes && <input type='checkbox' dataset-id={data[dataIndex].id} checked={notesToEdit.includes(data[dataIndex].id.toString()) || false} onChange={(e) =>handleCheck(e, notesToEdit, setNotesToEdit)}/>}
+                <div onClick={() =>getNote(data[dataIndex].id, setNoteObj, noteObj, navigate)}>
+                    <div 
+                    key={data[dataIndex].id} 
+                    className='note-preview' 
+                    style={{width: divSize, height: divSize * 0.9, display: "flex", justifyContent: "center"}}
+                    >
+                        <p>{data[dataIndex]?.content?.replace(/<[^>]*>/g, '')}</p>
+                    </div>
+                    <div className='note-info' style={{maxWidth: divSize}}>
+                        <p>{data[dataIndex]?.title ||"Kein Titel"}</p>
+                        <sub>{data[dataIndex].date}</sub>
+                    </div>
                 </div>
             </div>
         );
@@ -86,7 +88,7 @@ export function NoteWrapper({data}) {
     }
 
     return (
-    <div className="NoteWrapper" style={{display: 'flex', justifyContent: 'center'}}>
+    <div className="NoteWrapper" style={{display: 'flex'}}>
         <div>
         {rowDivs}
         </div>

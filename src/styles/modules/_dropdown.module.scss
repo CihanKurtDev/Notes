@@ -1,0 +1,35 @@
+@import '../partials/variables';
+
+.dropdown {
+    @include flex-col;
+    background-color: $dark-gray;
+    position: absolute;
+    right: 0;
+    top: 50px;
+    width: max-content;
+    
+    &--settings{
+        width: 100%;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.5s, visibility 0.5s; 
+        list-style-type: none; 
+        margin: 0;
+        padding: 0; 
+        text-align: center;
+
+        &.open{
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    &--sort{
+        top: 0;
+        right: 100%;
+    }
+}

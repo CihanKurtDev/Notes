@@ -36,4 +36,23 @@
             background-color: darken($background-color, 5%);
         }
     }
+    
+    &--dropdown {
+        height: 40px;
+        padding: 0px 30px;
+        background-color: transparent;
+        border-bottom: 1px solid $primary-color;
+        border-radius: 0; 
+
+        &:hover {
+            background-color: lighten($background-color, 10%);
+            cursor: pointer;
+        }
+    }
+    
+    &.active {
+        font-weight: bold;
+        color: #036203
+    }
+
 }
