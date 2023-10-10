@@ -9,11 +9,14 @@
     width: max-content;
     
     &--settings{
-        top: initial;
         width: 100%;
         opacity: 0;
         visibility: hidden;
-        transition: opacity 0.5s, visibility 0.5s;   
+        transition: opacity 0.5s, visibility 0.5s; 
+        list-style-type: none; 
+        margin: 0;
+        padding: 0; 
+        text-align: center;
 
         &.open{
             opacity: 1;

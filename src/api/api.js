@@ -172,17 +172,15 @@ export async function getNotesInFolders(folderId, setSelectedNotes, notes){
               filteredNotes.push(note)
             } 
         }
-        
     }catch (error) {
         console.log(error)
     } finally {
-        () => setSelectedNotes(filteredNotes)
+        setSelectedNotes(filteredNotes)
     }
 }
 
 export async function saveNoteState(value, dayjs, noteObj, setNoteObj, setIsLoading, selectedFolder) {
     setIsLoading(true)
-    console.log(noteObj)
     try {
         const res = await fetch("http://localhost:3000/Notes", {
             method: "POST",

@@ -22,8 +22,7 @@ export default function Settings(){
     function handleNoteClick() {
         setSelectedNotes(notes)
         setShowSettings(!showSettings)
-        console.log(notes)
-        //setSelectedFolder({ name: 'Alle Notizen' })
+        setSelectedFolder({ name: 'Alle Notizen' })
     }
 
     return(
@@ -43,15 +42,15 @@ export default function Settings(){
                         Ordner
                     </button>
                 </li>
-                    <div className={`dropdown dropdown--settings ${showSettingsDropdown ? "open" : ""}`}>
-                    {folders?.map((folder, id) => (
-                        <li key={id}>
-                            <button className={`button button--transparent button--list ${showSettings ? "open" : ""}`} onClick={() => handleFolderClick(folder)}>
-                                {folder.name}
-                            </button>
-                        </li>
-                    ))}
-                </div>
+            </ul>
+            <ul className={`dropdown--settings ${showSettingsDropdown ? "open" : ""}`}>
+                {folders?.map((folder, id) => (
+                    <li key={id}>
+                        <button className={`button button--transparent button--list ${showSettings ? "open" : ""}`} onClick={() => handleFolderClick(folder)}>
+                            {folder.name}
+                        </button>
+                    </li>
+                ))}
             </ul>
         </div>
     )

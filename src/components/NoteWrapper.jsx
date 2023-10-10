@@ -88,7 +88,7 @@ export function NoteWrapper({data}) {
     }
 
     return (
-    <div className="NoteWrapper" style={{display: 'flex', justifyContent: 'center'}}>
+    <div className="NoteWrapper" style={{display: 'flex'}}>
         <div>
         {rowDivs}
         </div>
