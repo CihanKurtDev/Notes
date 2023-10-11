@@ -17,7 +17,13 @@ export default function Header(){
         setReadOnly,
         noteObj,
         setNoteObj,
-        selectedFolder
+        selectedFolder,
+        searchString, 
+        setSearchString, 
+        notesToEdit,
+        isEditingNotes,
+        setNotesToEdit,
+        setShowFolderForm 
     } = userStore()
     const [showSearch, setShowSearch] = useState(false)
     const navigate = useNavigate()
@@ -34,14 +40,18 @@ export default function Header(){
         setShowSortDropdown, 
         navigate,
         readOnly, 
-        setReadOnly
+        setReadOnly, 
+        notesToEdit,
+        isEditingNotes,
+        setNotesToEdit,
+        setShowFolderForm 
     ).get(location)
     
     function generateButtons(string){
         return iconsToShow.map((icon) => (
             <>
-                {icon.position === string && 
-                    <button onClick={icon.func} className="button--transparent">
+                {icon.position === string &&
+                    <button onClick={icon.func} className="button--transparent" style={{visibility: icon?.isVisible || "visible"}}>
                         <FontAwesomeIcon icon={icon.icon} />
                     </button>
                 }
@@ -49,15 +59,14 @@ export default function Header(){
             )
         );
     }
-    console.log(location === "NoteEditor")
     return (
         <header className='header'>
           <div className="button__wrapper--left">{generateButtons("left")}</div>
             {location === "NoteEditor" 
                 ? <input className='input input--search' type='text' placeholder='Title' value={noteObj.title} onChange={(e) =>  setNoteObj({...noteObj, title: e.target.value})} /> 
                 :  (location === "Home" && showSearch 
-                    ? <input autoFocus className='input input--search' id='search' type='text' placeholder='Search' value={searchString} onBlur={() => setShowSearch(false)} onChange={(e) =>  setSearchString(e.target.value)} />
-                    : <p className='header__paragraph'>{selectedFolder.name}</p>
+                    ? <input autoFocus className='input input--search' id='search' type='text' placeholder='Search' value={searchString} onChange={(e) =>  setSearchString(e.target.value)} />
+                    : <h1>{selectedFolder.name}</h1>
                 )
             }
           <div className="button__wrapper--right">{generateButtons("right")}</div>

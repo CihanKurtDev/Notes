@@ -21,7 +21,7 @@ export default function Home(){
         setNoteObj,
         setIsLoaded,
         setReadOnly,
-        showFolderForm
+        showFolderForm,
     } = userStore()
 
     useEffect(() => {
