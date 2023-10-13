@@ -36,10 +36,6 @@ export default function Home(){
     },[folders])
 
     useEffect(() => {
-        setNotesToEdit(selectedNotes)
-    },[checkAllNotes])
-
-    useEffect(() => {
         if (searchString !== "") {
             const filteredNotes = notes.filter((note) => note.title && note.title.startsWith(searchString))
             setSelectedNotes(filteredNotes)

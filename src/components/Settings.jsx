@@ -43,7 +43,7 @@ export default function Settings(){
                     </button>
                 </li>
             </ul>
-            <ul className={`dropdown--settings ${showSettingsDropdown ? "open" : ""}`}>
+            <ul className={`dropdown dropdown--settings ${showSettingsDropdown ? "open" : ""}`}>
                 {folders?.map((folder, id) => (
                     <li key={id}>
                         <button className={`button button--transparent button--list ${showSettings ? "open" : ""}`} onClick={() => handleFolderClick(folder)}>
