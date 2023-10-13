@@ -76,21 +76,14 @@ export async function getNote(id, setNoteObj, noteObj, navigate){
 }
 
 
-export async function LogOut(navigate){
+export async function logOut(navigate){
     try {
-        const res = await fetch(`http://localhost:3000/Logout`,{
+        await fetch(`http://localhost:3000/Logout`,{
             credentials: "include",
             headers: {
                 "Content-Type": "application/json"
             }
         })
-
-        if(!res.ok) {
-            console.log(`HTTP error! status: ${res.status}`)
-        }
-
-        const data = await res.json()
-        console.log(data)
     } catch(error) {
         console.log(error)
     } finally {
