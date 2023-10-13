@@ -6,7 +6,6 @@ import {sortSelectedNotes} from '../utils/utils'
 export function DropdownMenu({location}){
     const navigate = useNavigate()
     const {
-        isEditingNotes, 
         setIsEditingNotes, 
         noteObj, 
         sortOption, 
@@ -33,29 +32,29 @@ export function DropdownMenu({location}){
     }
     
     return(
-        <>
-            {showDropdown &&  
-                <div className="dropdown">
-                    {location === "Home" && (
-                        <>
-                            <button className='button button--dropdown' onClick={() =>  {setShowSortDropdown(!showSortDropdown), setIsEditingNotes(false)}}>Sort Notes</button>
-                            <button className='button button--dropdown' onClick={() =>  {setIsEditingNotes(!isEditingNotes), setShowDropdown(!showDropdown)}}>Edit</button>
-                            {selectedFolder.name === "Alle Notizen"? 
-                                <button className='button button--dropdown' onClick={() =>  {setShowFolderForm(!showFolderForm), setShowDropdown(!showDropdown)}}>Create Folder</button>
-                            : 
-                                <button className='button button--dropdown' onClick={() =>  {deleteFolder(selectedFolder, setFolders, setSelectedFolder), setShowDropdown(!showDropdown)}}>Delete Folder</button>
-                            }
-                        </>
-                    )}
-                    {location === "NoteEditor" && <button className='button button--dropdown' onClick={() =>  {deleteNote(noteObj, navigate), setShowDropdown(!showDropdown)}}>Delete Note</button>}
-                    {showSortDropdown &&
-                        <div className="dropdown dropdown--sort">
-                            <button className={`button button--dropdown ${sortOption === "title" && "active"}`} onClick={(e) =>  handleSort(e.target.innerText.toLowerCase())}>Title</button>
-                            <button className={`button button--dropdown ${sortOption === "date" && "active"}`}  onClick={(e) =>  handleSort(e.target.innerText.toLowerCase())}>Date</button>
-                        </div>
-                    }
-                </div>
-            }
-        </>
+    <>
+        {showDropdown &&  
+            <ul className="dropdown dropdown--edit">
+                {location === "Home" && (
+                    <>
+                        <li><button autoFocus className='button button--dropdown' onClick={() =>  {setShowSortDropdown(!showSortDropdown), setIsEditingNotes(false)}} onBlur={() => (setShowDropdown(false))}>Sort Notes</button></li>
+                        <li><button className='button button--dropdown' onClick={() =>  {setIsEditingNotes(true), setShowDropdown(!showDropdown)}}>Edit</button></li>
+                        {selectedFolder.name === "Alle Notizen"? 
+                            <li><button className='button button--dropdown' onClick={() =>  {setShowFolderForm(!showFolderForm), setShowDropdown(!showDropdown)}}>Create Folder</button></li>
+                        : 
+                            <li><button className='button button--dropdown' onClick={() =>  {deleteFolder(selectedFolder, setFolders, setSelectedFolder), setShowDropdown(!showDropdown)}}>Delete Folder</button></li>
+                        }
+                    </>
+                )}
+                {location === "NoteEditor" && <li><button className='button button--dropdown' onClick={() =>  {deleteNote(noteObj, navigate), setShowDropdown(!showDropdown)}}>Delete Note</button></li>}
+                {showSortDropdown &&
+                    <ul className="dropdown dropdown--sort">
+                        <li><button className={`button button--dropdown ${sortOption === "title" && "active"}`} onClick={(e) =>  handleSort(e.target.innerText.toLowerCase())}>Title</button></li>
+                        <li><button className={`button button--dropdown ${sortOption === "date" && "active"}`}  onClick={(e) =>  handleSort(e.target.innerText.toLowerCase())}>Date</button></li>
+                    </ul>
+                }
+            </ul>
+        }
+    </>
     )    
 }
