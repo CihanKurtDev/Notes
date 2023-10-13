@@ -76,6 +76,28 @@ export async function getNote(id, setNoteObj, noteObj, navigate){
 }
 
 
+export async function LogOut(navigate){
+    try {
+        const res = await fetch(`http://localhost:3000/Logout`,{
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+
+        if(!res.ok) {
+            console.log(`HTTP error! status: ${res.status}`)
+        }
+
+        const data = await res.json()
+        console.log(data)
+    } catch(error) {
+        console.log(error)
+    } finally {
+        navigate("/")
+    }
+}
+
 export async function deleteNote(noteObj, navigate) {
     try {
         const res = await fetch(`http://localhost:3000/Notes/${noteObj.id}`, {

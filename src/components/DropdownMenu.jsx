@@ -1,4 +1,4 @@
-import { deleteNote, deleteFolder } from '../api/api';
+import { deleteNote, deleteFolder, LogOut } from '../api/api';
 import { useNavigate } from 'react-router-dom'
 import userStore from '../stores/userStore';
 import {sortSelectedNotes} from '../utils/utils'
@@ -37,13 +37,14 @@ export function DropdownMenu({location}){
             <ul className="dropdown dropdown--edit">
                 {location === "Home" && (
                     <>
-                        <li><button autoFocus className='button button--dropdown' onClick={() =>  {setShowSortDropdown(!showSortDropdown), setIsEditingNotes(false)}} onBlur={() => (setShowDropdown(false))}>Sort Notes</button></li>
+                        <li><button className='button button--dropdown' onClick={() =>  {setShowSortDropdown(!showSortDropdown), setIsEditingNotes(false)}}>Sort Notes</button></li>
                         <li><button className='button button--dropdown' onClick={() =>  {setIsEditingNotes(true), setShowDropdown(!showDropdown)}}>Edit</button></li>
                         {selectedFolder.name === "Alle Notizen"? 
                             <li><button className='button button--dropdown' onClick={() =>  {setShowFolderForm(!showFolderForm), setShowDropdown(!showDropdown)}}>Create Folder</button></li>
                         : 
                             <li><button className='button button--dropdown' onClick={() =>  {deleteFolder(selectedFolder, setFolders, setSelectedFolder), setShowDropdown(!showDropdown)}}>Delete Folder</button></li>
                         }
+                         <li><button className='button button--dropdown' onClick={() =>  LogOut(navigate)}>Log Out</button></li>
                     </>
                 )}
                 {location === "NoteEditor" && <li><button className='button button--dropdown' onClick={() =>  {deleteNote(noteObj, navigate), setShowDropdown(!showDropdown)}}>Delete Note</button></li>}

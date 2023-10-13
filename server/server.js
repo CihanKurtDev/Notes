@@ -69,6 +69,12 @@ app.post('/', async (req, res) => {
   }
 });
 
+app.get('/Logout', (req, res) => {
+  res.clearCookie('accessToken', { httpOnly: true })
+  res.json({success: true, message: "Logout Success"})
+});
+
+
 app.post('/Registration', (req, res) => {
   const { name, password, email } = req.body;
   

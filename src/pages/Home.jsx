@@ -16,7 +16,6 @@ export default function Home(){
         selectedNotes,
         setSelectedNotes,
         folders,
-        checkAllNotes,
         setNotes,
         setNoteObj,
         setIsLoaded,
