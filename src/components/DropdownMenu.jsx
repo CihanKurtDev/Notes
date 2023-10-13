@@ -1,4 +1,4 @@
-import { deleteNote, deleteFolder, LogOut } from '../api/api';
+import { deleteNote, deleteFolder, logOut } from '../api/api';
 import { useNavigate } from 'react-router-dom'
 import userStore from '../stores/userStore';
 import {sortSelectedNotes} from '../utils/utils'
@@ -44,7 +44,7 @@ export function DropdownMenu({location}){
                         : 
                             <li><button className='button button--dropdown' onClick={() =>  {deleteFolder(selectedFolder, setFolders, setSelectedFolder), setShowDropdown(!showDropdown)}}>Delete Folder</button></li>
                         }
-                         <li><button className='button button--dropdown' onClick={() =>  LogOut(navigate)}>Log Out</button></li>
+                         <li><button className='button button--dropdown' onClick={() =>  logOut(navigate)}>Log Out</button></li>
                     </>
                 )}
                 {location === "NoteEditor" && <li><button className='button button--dropdown' onClick={() =>  {deleteNote(noteObj, navigate), setShowDropdown(!showDropdown)}}>Delete Note</button></li>}
