@@ -65,12 +65,12 @@ export default function Header(){
             {location === "NoteEditor" 
                 ? <input className='input input--search' type='text' placeholder='Title' value={noteObj.title} onChange={(e) =>  setNoteObj({...noteObj, title: e.target.value})} /> 
                 :  (location === "Home" && showSearch 
-                    ? <input autoFocus className='input input--search' id='search' type='text' placeholder='Search' value={searchString} onChange={(e) =>  setSearchString(e.target.value)} />
+                    ? <input autoFocus className='input input--search' id='search' type='text' placeholder='Search' value={searchString} onChange={(e) =>  setSearchString(e.target.value)} onBlur={() => setShowSearch(false)}/>
                     : <h1>{selectedFolder.name}</h1>
                 )
             }
           <div className="button__wrapper--right">{generateButtons("right")}</div>
-          <DropdownMenu location={location} />
+        <DropdownMenu location={location} />
         </header>
     );
 }
