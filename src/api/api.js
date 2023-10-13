@@ -28,7 +28,7 @@ export async function handleSubmit(e, navigate) {
 export async function handleRegistration(e, navigate) {
     e.preventDefault(); 
     try {
-        const res = await fetch('http://localhost:3000/Registration', {
+        await fetch('http://localhost:3000/Registration', {
             method: "POST",
             credentials: 'include',
             headers: {
@@ -40,10 +40,6 @@ export async function handleRegistration(e, navigate) {
                 password: document.getElementById("password").value, 
             })
         })
-        const data = await res.json()
-        if (!noteObj.id) {
-            setNoteObj({...noteObj, id: data.id})
-        }
     } catch(error) {
         const inputs = document.getElementsByTagName('input')
         for(let i = 0; i< inputs.length; i++) {
@@ -51,7 +47,7 @@ export async function handleRegistration(e, navigate) {
         }
         console.log(error)
     } finally {
-        () => navigate("/")
+        navigate("/")
     }
 }
 
