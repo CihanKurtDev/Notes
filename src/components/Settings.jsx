@@ -1,7 +1,7 @@
 import userStore from "../stores/userStore"
 import { faArrowLeft, faArrowDown, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { getFolders, getNotesInFolders } from "../api/api";
 import { useState } from "react";
 
@@ -13,17 +13,17 @@ export default function Settings(){
         getFolders(setFolders)
     },[])
 
-    function handleFolderClick(folder) {
-        getNotesInFolders(folder.id, setSelectedNotes, notes),
-        setSelectedFolder({name: folder.name, id: folder.id}), 
-        setShowSettings(!showSettings)
-    }
+    const handleFolderClick = useCallback((folder) => {
+        getNotesInFolders(folder.id, setSelectedNotes, notes)
+        setSelectedFolder({ name: folder.name, id: folder.id })
+        setShowSettings(false)
+    }, [notes, setSelectedNotes, setSelectedFolder, setShowSettings])
 
-    function handleNoteClick() {
+    const handleNoteClick = useCallback(() => {
         setSelectedNotes(notes)
-        setShowSettings(!showSettings)
+        setShowSettings(false)
         setSelectedFolder({ name: 'Alle Notizen' })
-    }
+    }, [notes, setSelectedNotes, setSelectedFolder, setShowSettings])
 
     return(
         <div id="settings" className={`settings-wrapper ${showSettings ? "open" : ""}`}>
@@ -44,8 +44,8 @@ export default function Settings(){
                 </li>
             </ul>
             <ul className={`dropdown dropdown--folder ${showSettingsDropdown ? "open" : ""}`}>
-                {folders?.map((folder, id) => (
-                    <li key={id}>
+                {folders?.map((folder) => (
+                    <li key={folder.id}>
                         <button className={`button button--transparent button--list ${showSettings ? "open" : ""}`} onClick={() => handleFolderClick(folder)}>
                             {folder.name}
                         </button>

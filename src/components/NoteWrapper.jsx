@@ -14,7 +14,6 @@ export function NoteWrapper({data}) {
         notesToEdit, 
         setNotesToEdit, 
         setShowDropdown,
-        checkAllNotes,
     } = userStore()
     const navigate = useNavigate()
 
@@ -47,7 +46,6 @@ export function NoteWrapper({data}) {
     }
 
     useEffect(() => {
-    handleResize();
     window.addEventListener('resize', handleResize)
 
     return () => {
@@ -90,12 +88,11 @@ export function NoteWrapper({data}) {
     return (
     <div className="NoteWrapper" style={{display: 'flex'}}>
         <div>
-        {rowDivs}
+            {rowDivs}
         </div>
         <button className="button button--new-note" onClick={() => {setShowDropdown(false),  navigate( "/NoteEditor")}}><FontAwesomeIcon icon={faPenToSquare} style={{width: 20, height: 20}}/></button>
     </div>
-    )
-    
+    )  
 }
 
 
