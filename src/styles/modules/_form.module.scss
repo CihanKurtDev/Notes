@@ -3,9 +3,7 @@
 
 
 .form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    @include flex(column, center, center);
     height: fit-content;
     background-color: $secondary-color;
     color: $font-color;
@@ -21,7 +19,6 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 20vw
     }
 
     &__anchor {
@@ -41,20 +38,11 @@
         font-size: $font-size;
     }
 
-    &__input{
-        font-size: 1.2rem;
-        padding: 5px;
-        border: 1px solid transparent;
-        border-radius: 4px;
-        width: 100%;
-        margin-bottom: 5px;
-        box-sizing: border-box;
-    }
-
     &__label{
         @include flex-col;
         margin-bottom: 10px;
         text-align: left;
+        width: 100%;
     }
 }
 

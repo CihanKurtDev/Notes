@@ -1,26 +1,28 @@
 @import '../partials/variables';
+@import '../partials/mixins';
 
 .dropdown {
-    @include flex-col;
+    @include flex(column, column, center);
     background-color: $dark-gray;
-    position: absolute;
-    right: 0;
-    width: max-content;
     margin: 0;
     padding: 0; 
-    
-    li {
-        list-style-type: none;
-    }
 
     &--settings{
         width: 100%;
+        list-style-type: none; 
+        text-align: center;
+    }
+
+    li {
+        list-style-type: none;
+        width: 100%;
+    }
+
+    &--folder {
         opacity: 0;
         visibility: hidden;
         transition: opacity 0.5s, visibility 0.5s; 
-        list-style-type: none; 
         text-align: center;
-
         &.open{
             opacity: 1;
             visibility: visible;
@@ -28,6 +30,8 @@
     }
 
     &--edit {
+        position: absolute;
+        right: 0;
         top: 50px;
     }
 

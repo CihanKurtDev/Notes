@@ -4,8 +4,7 @@ export default function Form({ fields, submitFunction, extra = []}) {
   const navigate = useNavigate()
 
   return (
-    <main className="form-wrapper">
-      <form className="form light" onSubmit={(e) => submitFunction(e, navigate)}>
+    <form className="form light" onSubmit={(e) => submitFunction(e, navigate)}>
         {fields.map((field, index) => (
           <label key={index} className="form__label" htmlFor={field.id}>
             {field.label}
@@ -17,6 +16,5 @@ export default function Form({ fields, submitFunction, extra = []}) {
         })}
         <button className="button--login" type='submit'>Senden</button>
       </form>
-    </main>
   );
 }

@@ -19,10 +19,10 @@ export default function FolderForm(){
 
     return (
         <div className="folder-form-wrapper">
-            <div className="form form--folder" onBlur={() => setShowFolderForm(!showFolderForm)}>
+            <div onBlur={() => setShowFolderForm(false)}>
             {showError && <p className="form form__paragraph--error">Namen für Ordner benötigt</p>}
-                <form onSubmit={(e) => {handleSubmit(e, folderName)}}> 
-                    <input autoFocus className="input form__input" type="text" placeholder="Ordner Name" onChange={(e) => setFolderName(e.target.value)}></input>
+                <form className="form form--folder" onSubmit={(e) => {handleSubmit(e, folderName)}}> 
+                    <input autoFocus className="input input--form" type="text" placeholder="Ordner Name" onChange={(e) => setFolderName(e.target.value)}></input>
                 </form>
             </div>
         </div>

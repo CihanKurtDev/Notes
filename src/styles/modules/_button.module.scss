@@ -1,7 +1,6 @@
 @import '../partials/variables';
 
 .button {
-    border: none;
     border-radius: 4px;
     border: none;
     padding: 10px;
@@ -24,6 +23,7 @@
     }
 
     &--new-note {
+        @extend .button;
         position: fixed;
         bottom: 5%;
         right: 5%;
@@ -38,6 +38,7 @@
     }
     
     &--dropdown {
+        @extend .button;
         height: 40px;
         padding: 0px 30px;
         width: 100%;

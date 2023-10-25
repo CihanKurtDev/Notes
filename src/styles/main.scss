@@ -1,6 +1,7 @@
 @import './partials/variables';
 @import './partials/mixins';
 @import './modules/button.module.scss';
+@import './modules/container.module.scss';
 @import './modules/dropdown.module.scss';
 @import './modules/form.module.scss';
 @import './modules/input.module.scss';
@@ -22,121 +23,11 @@ body {
     margin: 0;
 }
 
-.form-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-.header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #393E46;
-    height: 50px;
-}
-
-.container {
-    min-height: 100vh;
-}
-
-.site-wrapper {
-    @include flex-col;
-    height: 100vh;
-    position: relative;
-}
-
-.preview-wrapper{
-    margin: 5px;
-    border-radius: 5px;
-    height: fit-content;
-    padding: 5px;    
-    text-align: center;
-    color: white;
-    overflow: hidden;
-
-    p {
-        margin: 5px 0;
-    }
-
-    &:hover{
-        background-color: lighten($background-color, 5%);
-        cursor: pointer;
-    }
-
-    &:hover .note-info{
-        font-weight: bold
-    }
-} 
-
-.note-preview{
-    background-color:  rgb(221, 221, 125);
-    color: #000;
-    border: 1px solid $primary-color;
-    border-radius: 5px;
-
-    p{
-        max-height: 100%;
-        overflow: hidden;
-        width: 90%;
-    }
-
-}
-
-.button {
-    &__wrapper {
-        &--left {
-            position: absolute;
-            left: 0;
-        }
-        &--right {
-            position: absolute;
-            right: 0;
-        }
-    }
-}
-
-.settings-wrapper {
-    height: 100%;
-    width: 0;
-    background-color: $dark-gray;
-    overflow-y: auto;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    position: absolute;
-    top: 0;
-    opacity: 0; 
-    transition: opacity 0.5s, width 0.5s;                           
-
-    &.open {
-        opacity: 1;
-        width: 90vw;
-        @include desktop {
-            width: 30vw;
-        };
-    }
-
-    .settings-button-wrapper {
-        display: flex;
-        justify-content: flex-end;
-    }
-}
-
 .list {
+    @include flex(row, column, center);
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     margin: 0;
     li{
         list-style-type: none;
     }
-}
-
-.folder-form-wrapper {
-    position: absolute;
-    height: 100vh;
-    width: 100%;
-    background-color: rgba(0,0,0,0.2);
-    backdrop-filter: blur(5px);
 }

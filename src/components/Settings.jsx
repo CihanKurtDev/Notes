@@ -26,11 +26,11 @@ export default function Settings(){
     }
 
     return(
-        <div id="settings" className={`settings-wrapper ${showSettings ? "open" : ""}`} tabIndex={0}>
+        <div id="settings" className={`settings-wrapper ${showSettings ? "open" : ""}`}>
             <div className="settings-button-wrapper">
                 <button className="button button--transparent" onClick={() => setShowSettings(!showSettings)}><FontAwesomeIcon icon={faArrowLeft} style={{width: 20, height: 20}} /></button>
             </div>
-            <ul className="list">
+            <ul className="dropdown dropdown--settings">
                 <li>
                     <button className={`button button--transparent button--list ${showSettings ? "open" : ""}`} onClick={() =>  handleNoteClick()}>
                         Alle Notizen
@@ -43,7 +43,7 @@ export default function Settings(){
                     </button>
                 </li>
             </ul>
-            <ul className={`dropdown dropdown--settings ${showSettingsDropdown ? "open" : ""}`}>
+            <ul className={`dropdown dropdown--folder ${showSettingsDropdown ? "open" : ""}`}>
                 {folders?.map((folder, id) => (
                     <li key={id}>
                         <button className={`button button--transparent button--list ${showSettings ? "open" : ""}`} onClick={() => handleFolderClick(folder)}>
