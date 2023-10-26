@@ -1,6 +1,8 @@
 import { useState } from "react"
 import insertNotes, { createFolder } from "../api/api"
+import insertNotes, { createFolder } from "../api/api"
 import userStore from "../stores/userStore"
+import Form from "./Form"
 import Form from "./Form"
 
 export default function FolderForm(){
@@ -38,6 +40,8 @@ export default function FolderForm(){
     ] : []
 
     return (
+        <div className="folder-form-wrapper" >
+            <Form fields={fields} extra={extra} onBlur={() => setShowFolderForm(false)} className="form form--folder" submitFunction={(e) => {handleSubmit(e, folderName)}}/>
         <div className="folder-form-wrapper" >
             <Form fields={fields} extra={extra} onBlur={() => setShowFolderForm(false)} className="form form--folder" submitFunction={(e) => {handleSubmit(e, folderName)}}/>
         </div>
