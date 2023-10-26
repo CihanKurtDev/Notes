@@ -10,13 +10,6 @@
         cursor: pointer
     }
 
-    &--login {
-        @extend .button;
-        font-weight: bold;
-        background-color: $accent-color;
-        width: 100%;
-    }
-
     &--transparent {
         @extend .button;
         background-color: transparent;
@@ -51,6 +44,21 @@
             cursor: pointer;
         }
     }
+
+    &--form {
+        @extend .button;
+        background-color: $accent-color;
+        width: 100%;
+        padding: 5px;
+    }
+
+    &--folder {
+        background-color: $primary-color;
+        width: 100%;
+        margin-bottom: 5px;
+        padding: 5px;
+        border-radius: 0;
+    } 
     
     &.active {
         font-weight: bold;

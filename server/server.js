@@ -180,6 +180,26 @@ app.post("/Folders", checkToken, (req, res) => {
   })
 }) 
 
+app.post("/NotesInFolder", checkToken, (req, res) => {
+  const { userId } = req.decodedToken;
+  const { folderId, notes } = req.body;
+
+  db.serialize(() => {
+    notes.forEach((noteId) => {
+      db.run(
+        `INSERT INTO NotesInFolder (noteId, folderId, userId) VALUES (?, ?, ?)`,
+        [noteId, folderId, userId],
+        (err) => {
+          if (err) {
+            return res.status(403).json({ message: "INSERT error" });
+          }
+        }
+      );
+    });
+    res.status(200).json({ message: "Notes added to folder" });
+  });
+});
+
 app.get("/NotesInFolder/:id", checkToken, (req, res) => {
   const { userId } = req.decodedToken;
   const {id} = req.params
