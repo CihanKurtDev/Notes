@@ -270,3 +270,29 @@ export async function deleteFolder(folder, setFolders, setSelectedFolder){
         setSelectedFolder({name: "Alle Notizen"})
     }
 }
+
+export default async function insertNotes(folderId, notesToEdit, setIsEditingNotes, setNotesToEdit){
+    try {
+        const res = await fetch("http://localhost:3000/NotesInFolder", {
+            method: "POST",
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              folderId: folderId,
+              notes: notesToEdit,
+            }),
+          })
+        if (!res.ok) {
+            console.log(`HTTP error! status: ${res.status}`)
+        }
+        const data = await res.json()
+        console.log(data)
+    } catch(error) {
+        console.log(error)
+    } finally {
+        setIsEditingNotes(false)
+        setNotesToEdit([])
+    }
+}
