@@ -23,7 +23,7 @@ export default function FolderForm(){
         { label: 'Ordner erstellen:', type: 'text', id: 'folder', onChange: (e) => setFolderName(e.target.value) },
     ];
 
-    const extra = folders.length > 0 && isEditingNotes ?[         
+    const extra = folders.length > 0 && isEditingNotes ? [         
         {type: 'p', props: {
             className: "info",
             text: 'Zu Ordner hinzufügen:'
@@ -40,8 +40,6 @@ export default function FolderForm(){
     ] : []
 
     return (
-        <div className="folder-form-wrapper" >
-            <Form fields={fields} extra={extra} onBlur={() => setShowFolderForm(false)} className="form form--folder" submitFunction={(e) => {handleSubmit(e, folderName)}}/>
         <div className="folder-form-wrapper" >
             <Form fields={fields} extra={extra} onBlur={() => setShowFolderForm(false)} className="form form--folder" submitFunction={(e) => {handleSubmit(e, folderName)}}/>
         </div>
