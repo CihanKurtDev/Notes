@@ -76,7 +76,6 @@ export async function getNote(id, setNoteObj, navigate){
     } catch(error) {
         console.log(error)
     } finally {
-        console.log()
         navigate("/NoteEditor")
     }
 }

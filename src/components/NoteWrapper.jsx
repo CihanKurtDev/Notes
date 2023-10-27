@@ -54,6 +54,20 @@ export function NoteWrapper({data}) {
     }
     }, [data.length, divsPerRow])
 
+
+    function handleNoteDivClick(id) {
+        if (isEditingNotes) {
+            const index = notesToEdit.indexOf(id.toString());
+            if (index > -1) {
+                setNotesToEdit(notesToEdit.filter((_, i) => i !== index));
+            } else {
+                setNotesToEdit([...notesToEdit, id.toString()]);
+            }
+        } else {
+            getNote(id, setNoteObj, navigate);
+        }
+    }
+
     const rowDivs = [];
     for (let i = 0; i < amountOfRows; i++) {
     const x = [];
@@ -64,9 +78,10 @@ export function NoteWrapper({data}) {
             <div 
             className='preview-wrapper'
             key={`row${i} item${j}`}
+            onClick={() => handleNoteDivClick(data[dataIndex].id, navigate)}
             >
                 {isEditingNotes && <input type='checkbox' dataset-id={data[dataIndex].id} checked={notesToEdit.includes(data[dataIndex].id.toString()) || false} onChange={(e) =>handleCheck(e, notesToEdit, setNotesToEdit)}/>}
-                <div onClick={() =>getNote(data[dataIndex].id, setNoteObj, noteObj, navigate)}>
+                <div>
                     <div 
                     key={data[dataIndex].id} 
                     className='note-preview' 
