@@ -46,6 +46,10 @@
   padding: 5px;
   border-radius: 0;
 }
+.button--close {
+  padding: 0;
+  background-color: transparent;
+}
 .button.active, .active.button--transparent, .active.button--new-note, .active.button--dropdown, .active.button--form {
   font-weight: bold;
   color: #036203;
@@ -122,6 +126,11 @@
 .button__wrapper--right {
   position: absolute;
   right: 0;
+}
+.button__wrapper--flex-end {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
 }
 
 .settings-wrapper {

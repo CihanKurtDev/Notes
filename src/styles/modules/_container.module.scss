@@ -73,6 +73,12 @@
             position: absolute;
             right: 0;
         }
+
+        &--flex-end {
+            display: flex;
+            justify-content: flex-end;
+            width: 100%;
+        }
     }
 }
 

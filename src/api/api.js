@@ -271,7 +271,7 @@ export async function deleteFolder(folder, setFolders, setSelectedFolder){
     }
 }
 
-export default async function insertNotes(folderId, notesToEdit, setIsEditingNotes, setNotesToEdit){
+export default async function insertNotes(folderId, notesToEdit, setIsEditingNotes, setNotesToEdit, setShowFolderForm){
     try {
         const res = await fetch("http://localhost:3000/NotesInFolder", {
             method: "POST",
@@ -293,6 +293,7 @@ export default async function insertNotes(folderId, notesToEdit, setIsEditingNot
         console.log(error)
     } finally {
         setIsEditingNotes(false)
+        setShowFolderForm(false)
         setNotesToEdit([])
     }
 }

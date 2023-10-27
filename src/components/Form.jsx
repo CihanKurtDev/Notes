@@ -1,9 +1,15 @@
 import { useNavigate } from 'react-router-dom'
+import userStore from '../stores/userStore';
 
-export default function Form({ className = "form light", fields, submitFunction, extra = [], onBlur }) {
+export default function Form({ className = "form light", fields, submitFunction, extra = [] }) {
   const navigate = useNavigate()
+  const {setShowFolderForm} = userStore()
+
   return (
-    <form className={className} onSubmit={(e) => submitFunction(e, navigate)} onBlur={onBlur}>
+    <form className={className} onSubmit={(e) => submitFunction(e, navigate)}>
+      <div className='button__wrapper--flex-end'>
+        <button className="button button--close" onClick={() => setShowFolderForm(false)}>x</button>
+      </div>
       <div className="formInfoWrapper">
         {fields.map((field, index) => (
           <label key={index} className="form__label" htmlFor={field.id}>
@@ -12,7 +18,7 @@ export default function Form({ className = "form light", fields, submitFunction,
           </label>
         ))}
         {extra.map((tag, index) => {
-            return <tag.type index={index} {...tag.props}>{tag.props.text}</tag.type>
+            return <tag.type index={index} onClick={tag.props?.onClick} {...tag.props}>{tag.props.text}</tag.type>
         })}
       </div>
         <button className="button button--form" type='submit'>Senden</button>
