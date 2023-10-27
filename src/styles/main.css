@@ -171,6 +171,34 @@
   width: 100%;
 }
 
+.successWrapper {
+  background-color: #222831;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.successNote {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background-color: #242423;
+  padding: 20px 10px;
+}
+
+.successIcon {
+  background-color: rgba(19, 96, 20, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+}
+
 .dropdown {
   display: flex;
   flex-direction: column;

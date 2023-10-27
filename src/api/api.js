@@ -25,7 +25,7 @@ export async function handleSubmit(e, navigate) {
     }
 }
 
-export async function handleRegistration(e, navigate) {
+export async function handleRegistration(e, navigate, setSuccess) {
     e.preventDefault(); 
     try {
         await fetch('http://localhost:3000/Registration', {
@@ -47,11 +47,17 @@ export async function handleRegistration(e, navigate) {
         }
         console.log(error)
     } finally {
-        navigate("/")
+        setSuccess(true)
+        new Promise((res) => {
+            setTimeout(() => {                
+                res()
+                navigate("/")
+            }, 1000)
+        }).then(() => setSuccess(false))
     }
 }
 
-export async function getNote(id, setNoteObj, noteObj, navigate){
+export async function getNote(id, setNoteObj, navigate){
     try {
         const res = await fetch(`http://localhost:3000/Notes/${id}`,{
             credentials: "include",

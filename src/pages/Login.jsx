@@ -14,14 +14,5 @@ export default function Login() {
     }
   }]
   
-  return  (
-    <main className="form-wrapper">
-      <Form 
-      extra={extra} 
-      fields={fields} 
-      submitFunction={handleSubmit}
-      />
-    </main>
-  ) 
-
+  return  <Form extra={extra} fields={fields} submitFunction={handleSubmit}/>
 }
