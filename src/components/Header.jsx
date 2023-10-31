@@ -63,7 +63,7 @@ export default function Header(){
     }
     return (
         <header className='header'>
-          <div className="button__wrapper--left">{generateButtons("left")}</div>
+          <div>{generateButtons("left")}</div>
             {location === "NoteEditor" 
                 ? <input className='input input--search' type='text' placeholder='Title' value={noteObj.title} onChange={(e) =>  setNoteObj({...noteObj, title: e.target.value})} /> 
                 :  (location === "Home" && showSearch 
@@ -71,7 +71,7 @@ export default function Header(){
                     : <h1>{selectedFolder.name}</h1>
                 )
             }
-          <div className="button__wrapper--right">
+          <div>
           {location === "NoteEditor" && <FontAwesomeIcon className={`loadingIcon ${isLoading ? "show" : ""}`} icon={faRotate}/>}
           {generateButtons("right")}
           </div>

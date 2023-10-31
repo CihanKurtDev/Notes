@@ -7,7 +7,7 @@
 }
 
 .header {
-    @include flex(row, center, center);
+    @include flex(row, space-between, center);
     background-color: #393E46;
     height: 50px;
 }
@@ -65,15 +65,6 @@
 
 .button {
     &__wrapper {
-        &--left {
-            position: absolute;
-            left: 0;
-        }
-        &--right {
-            position: absolute;
-            right: 0;
-        }
-
         &--flex-end {
             display: flex;
             justify-content: flex-end;
