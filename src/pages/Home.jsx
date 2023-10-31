@@ -2,7 +2,7 @@ import Header from '../components/Header';
 import { useEffect } from 'react';
 import userStore from '../stores/userStore';
 import { NoteWrapper } from '../components/NoteWrapper';
-import { getUserNotes } from '../api/api';
+import { getNotesInFolders, getUserNotes } from '../api/api';
 import { useNavigate } from 'react-router-dom';
 import Settings from '../components/Settings';
 import FolderForm from '../components/FolderForm';
@@ -19,15 +19,14 @@ export default function Home(){
         setNotes,
         setNoteObj,
         setIsLoaded,
-        setReadOnly,
         showFolderForm,
+        selectedFolder
     } = userStore()
 
     useEffect(() => {
-        getUserNotes(setNotes, setIsLoaded, navigate)
+        selectedFolder.id ? getNotesInFolders(selectedFolder.id, setSelectedNotes, notes) : getUserNotes(setNotes, setIsLoaded, navigate)
         setNoteObj({})
         setNotesToEdit([])
-        setReadOnly(false)
     }, [])
 
     useEffect(() => {
