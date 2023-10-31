@@ -16,14 +16,15 @@ export default function Settings(){
     const handleFolderClick = useCallback((folder) => {
         getNotesInFolders(folder.id, setSelectedNotes, notes)
         setSelectedFolder({ name: folder.name, id: folder.id })
+        setShowSettingsDropdown(false)
         setShowSettings(false)
-    }, [notes, setSelectedNotes, setSelectedFolder, setShowSettings])
+    }, [notes])
 
     const handleNoteClick = useCallback(() => {
         setSelectedNotes(notes)
         setShowSettings(false)
         setSelectedFolder({ name: 'Alle Notizen' })
-    }, [notes, setSelectedNotes, setSelectedFolder, setShowSettings])
+    }, [notes])
 
     return(
         <div id="settings" className={`settings-wrapper ${showSettings ? "open" : ""}`}>
