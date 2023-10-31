@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { iconSet } from '../utils/icon'; 
 import userStore from '../stores/userStore';
 import { DropdownMenu } from './DropdownMenu';
+import { faRotate } from '@fortawesome/free-solid-svg-icons';
 
 export default function Header(){
     const { 
@@ -23,7 +24,8 @@ export default function Header(){
         notesToEdit,
         isEditingNotes,
         setNotesToEdit,
-        setShowFolderForm 
+        setShowFolderForm,
+        isLoading, 
     } = userStore()
     const [showSearch, setShowSearch] = useState(false)
     const navigate = useNavigate()
@@ -69,7 +71,10 @@ export default function Header(){
                     : <h1>{selectedFolder.name}</h1>
                 )
             }
-          <div className="button__wrapper--right">{generateButtons("right")}</div>
+          <div className="button__wrapper--right">
+          {location === "NoteEditor" && <FontAwesomeIcon className={`loadingIcon ${isLoading ? "show" : ""}`} icon={faRotate}/>}
+          {generateButtons("right")}
+          </div>
         <DropdownMenu location={location} />
         </header>
     );

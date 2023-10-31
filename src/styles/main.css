@@ -419,4 +419,23 @@ body {
   margin: 0;
 }
 
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.loadingIcon {
+  animation-name: rotate;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  visibility: hidden;
+}
+.loadingIcon.show {
+  visibility: visible;
+}
+
 /*# sourceMappingURL=main.css.map */

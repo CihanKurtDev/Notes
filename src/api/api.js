@@ -226,7 +226,12 @@ export async function saveNoteState(value, dayjs, noteObj, setNoteObj, setIsLoad
     } catch (error) {
         console.error(error)
     } finally {
-        setIsLoading(false)
+        new Promise((res) => {
+            setTimeout(() => {      
+                res()          
+            }, 500)
+        }).then(() => setIsLoading(false))
+        
     }
 }
 
