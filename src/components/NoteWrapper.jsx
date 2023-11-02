@@ -98,11 +98,11 @@ export function NoteWrapper({data}) {
         );
         }
     }
-    rowDivs.push(<div style={{ display: 'flex', maxWidth: "100vw" }} key={`row${i}`}>{x}</div>);
+    rowDivs.push(<div className='noteWrapper' style={{ display: 'flex', maxWidth: "100vw" }} key={`row${i}`}>{x}</div>);
     }
 
     return (
-    <div className="NoteWrapper" style={{display: 'flex'}}>
+    <div style={{display: 'flex'}}>
         <div>
             {rowDivs}
         </div>

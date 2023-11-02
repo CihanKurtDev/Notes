@@ -1,4 +1,4 @@
-import { deleteNote, deleteFolder, logOut } from '../api/api';
+import { logOut } from '../api/api';
 import { useNavigate } from 'react-router-dom'
 import userStore from '../stores/userStore';
 import {sortSelectedNotes} from '../utils/utils'
@@ -7,12 +7,9 @@ export function DropdownMenu({location}){
     const navigate = useNavigate()
     const {
         setIsEditingNotes, 
-        noteObj, 
         sortOption, 
         setSortOption, 
         selectedFolder, 
-        setFolders, 
-        setSelectedFolder, 
         showSortDropdown, 
         setShowSortDropdown, 
         setShowDropdown, 
@@ -21,6 +18,7 @@ export function DropdownMenu({location}){
         setShowFolderForm,
         selectedNotes, 
         setSelectedNotes,
+        setShowConfirmForm
     } = userStore()
     
     
@@ -42,12 +40,12 @@ export function DropdownMenu({location}){
                         {selectedFolder.name === "Alle Notizen"? 
                             <li><button className='button button--dropdown' onClick={() =>  {setShowFolderForm(!showFolderForm), setShowDropdown(!showDropdown)}}>Create Folder</button></li>
                         : 
-                            <li><button className='button button--dropdown' onClick={() =>  {deleteFolder(selectedFolder, setFolders, setSelectedFolder), setShowDropdown(!showDropdown)}}>Delete Folder</button></li>
+                            <li><button className='button button--dropdown' onClick={() =>  {setShowConfirmForm(true), setShowDropdown(!showDropdown)}}>Delete Folder</button></li>
                         }
                          <li><button className='button button--dropdown' onClick={() =>  logOut(navigate)}>Log Out</button></li>
                     </>
                 )}
-                {location === "NoteEditor" && <li><button className='button button--dropdown' onClick={() =>  {deleteNote(noteObj, navigate), setShowDropdown(!showDropdown)}}>Delete Note</button></li>}
+                {location === "NoteEditor" && <li><button className='button button--dropdown' onClick={() =>  {setShowConfirmForm(true), setShowDropdown(!showDropdown)}}>Delete Note</button></li>}
                 {showSortDropdown &&
                     <ul className="dropdown dropdown--sort">
                         <li><button className={`button button--dropdown ${sortOption === "title" && "active"}`} onClick={(e) =>  handleSort(e.target.innerText.toLowerCase())}>Title</button></li>

@@ -10,12 +10,12 @@ export default function Form({ className = "form light", fields, submitFunction,
     <div className='form-wrapper'>
       <form className={className} onSubmit={(e) => submitFunction(e, navigate)}>
         {location === "Home" &&
-        <div className='button__wrapper--flex-end'>
+        <div className='button__wrapper--top-right'>
           <button className="button button--close" onClick={() => setShowFolderForm(false)}>x</button>
         </div>
         }
         <div className="formInfoWrapper">
-          {fields.map((field, index) => (
+          {fields?.map((field, index) => (
             <label key={index} className="form__label" htmlFor={field.id}>
               {field.label}
               <input autoFocus className="input" type={field.type} id={field.id} pattern={field?.pattern} onChange={field.onChange} />
@@ -25,7 +25,7 @@ export default function Form({ className = "form light", fields, submitFunction,
               return <tag.type index={index} onClick={tag.props?.onClick} {...tag.props}>{tag.props.text}</tag.type>
           })}
         </div>
-          <button className="button button--form" type='submit'>Senden</button>
+          {fields && <button className="button button--form" type='submit'>Senden</button>}
       </form>
     </div>
   );

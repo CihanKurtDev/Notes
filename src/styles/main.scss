@@ -52,8 +52,24 @@ body {
     animation-iteration-count: infinite;
     animation-timing-function: linear;
     visibility: hidden;
-    
+
     &.show {
         visibility: visible;
     } 
+}
+
+@keyframes width {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.noteWrapper {
+    animation-name: width;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
 }

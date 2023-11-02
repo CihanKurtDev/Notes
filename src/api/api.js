@@ -96,7 +96,7 @@ export async function logOut(navigate){
     }
 }
 
-export async function deleteNote(noteObj, navigate) {
+export async function deleteNote(noteObj, navigate, setNoteObj) {
     try {
         const res = await fetch(`http://localhost:3000/Notes/${noteObj.id}`, {
             method: "POST",
@@ -117,10 +117,11 @@ export async function deleteNote(noteObj, navigate) {
         if(data) {
             console.log(data)
         }
-        navigate("/Home")
-
     } catch ( error ) {
         console.log(error)
+    } finally {
+        setNoteObj({})
+        navigate("/Home")
     }
 }
 

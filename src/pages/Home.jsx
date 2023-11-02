@@ -1,11 +1,12 @@
 import Header from '../components/Header';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import userStore from '../stores/userStore';
 import { NoteWrapper } from '../components/NoteWrapper';
 import { getNotesInFolders, getUserNotes } from '../api/api';
 import { useNavigate } from 'react-router-dom';
 import Settings from '../components/Settings';
 import FolderForm from '../components/FolderForm';
+import Confirm from '../components/Confirm';
 
 export default function Home(){
     const navigate = useNavigate()
@@ -20,7 +21,8 @@ export default function Home(){
         setNoteObj,
         setIsLoaded,
         showFolderForm,
-        selectedFolder
+        selectedFolder,
+        showConfirmForm
     } = userStore()
 
     useEffect(() => {
@@ -46,7 +48,8 @@ export default function Home(){
         <div className="container">
             <Header title={"Alle Notizen"}/>
             <Settings />
-            {showFolderForm && <FolderForm />}
+            {showFolderForm && <FolderForm/>}
+            {showConfirmForm && <Confirm />}
             <NoteWrapper data={selectedNotes} />
         </div>    
     )

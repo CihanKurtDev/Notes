@@ -39,6 +39,17 @@
   width: 100%;
   padding: 5px;
 }
+.button--confirm {
+  width: 47.5%;
+  border-radius: 0;
+}
+.button--confirm-accept {
+  background-color: green;
+  margin-right: 5%;
+}
+.button--confirm-decline {
+  background-color: red;
+}
 .button--folder {
   background-color: #393E46;
   width: 100%;
@@ -119,7 +130,7 @@
   width: 90%;
 }
 
-.button__wrapper--flex-end {
+.button__wrapper--top-right {
   display: flex;
   justify-content: flex-end;
   width: 100%;
@@ -230,6 +241,7 @@
 .dropdown--sort {
   top: 0;
   right: 100%;
+  position: absolute;
 }
 
 .form {
@@ -243,6 +255,7 @@
   padding: 1rem;
   font-size: 1.5rem;
   width: 90%;
+  position: relative;
 }
 @media screen and (min-width: 768px) {
   .form {
@@ -316,6 +329,7 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  z-index: -1;
 }
 .quill .ql-container {
   box-sizing: border-box;
@@ -428,6 +442,21 @@ body {
 }
 .loadingIcon.show {
   visibility: visible;
+}
+
+@keyframes width {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.noteWrapper {
+  animation-name: width;
+  animation-duration: 0.5s;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
 }
 
 /*# sourceMappingURL=main.css.map */

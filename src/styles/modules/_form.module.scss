@@ -10,6 +10,7 @@
     padding: 1rem;
     font-size: 1.5rem;
     width: 90%;
+    position: relative;
     @include tablet {
         width: 25%;
     };
